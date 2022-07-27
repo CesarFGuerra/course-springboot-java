@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.educandoweb.course.entities.Person;
 
-public interface UserRepository extends JpaRepository<Person, Long>{
+public interface PersonRepository extends JpaRepository<Person, Long>{
 
 }
