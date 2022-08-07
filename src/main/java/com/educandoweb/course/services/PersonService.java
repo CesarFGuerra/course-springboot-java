@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.educandoweb.course.entities.Person;
 import com.educandoweb.course.repositories.PersonRepository;
+import com.educandoweb.course.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class PersonService {
@@ -21,7 +22,7 @@ public class PersonService {
 	
 	public Person findById (Long id) {
 		Optional<Person> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
 	public Person insert(Person obj) {
@@ -33,8 +34,8 @@ public class PersonService {
 	}
 	
 	public Person update(Long id, Person obj) {
-		Person entity = repository.getOne(id);
-		updateData(entity, obj);	
+		Person entity = repository.getReferenceById(id);
+		updateData(entity, obj);
 		return repository.save(entity);
 	}
 	
